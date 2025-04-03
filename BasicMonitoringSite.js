@@ -1,7 +1,7 @@
 'use strict';
 document.getElementById("btn").addEventListener("click", function() 
 {
-  window.open("http://192.168.1.100", "_blank"); // open new tab with camera
+  window.open("http://192.168.217.166", "_blank"); // open new tab with camera
 });
 function updatePir() 
 {
