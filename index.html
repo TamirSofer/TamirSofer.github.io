@@ -1,20 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Security site</title>
-  <link rel="stylesheet" href="BasicMonitoringSite.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Security Site</title>
+  <link rel="stylesheet" href="SmartAlarmSystem.css" />
 </head>
 <body>
-  <p >displaying sensors data</p>
-  <li>Pir = <span id = "movementSensor">0</span> </li>
-  <li>Mic = <span id = "soundSensor"">0</span></li>
-  <div>
-    <button id = "btn">camera</button>
+
+  <section class="sensor-data">
+    <h2>Displaying Sensor Data</h2>
+    <ul>
+      <li>Pir1 = <span id="movementSensor1">0</span></li>
+      <li>Pir2 = <span id="movementSensor2">0</span></li>
+      <li>Mic1 = <span id="soundSensor1">0</span></li>
+      <li>Mic2 = <span id="soundSensor2">0</span></li>
+      <li>Breach = <span id="Breach">not detected</span></li>
+    </ul>
+  </section>
+
+  <section class="pin-entry">
+    <h2>Enter Your Entry Code</h2>
+    <input type="text" id="myInput" placeholder="Enter your pin" />
+    <button id="sendPin">Send to ESP32</button>
+  </section>
+
+  <!-- Camera button (visible when no breach) -->
+  <div id="cameraButtonWrapper">
+    <button id="camera">Camera</button>
   </div>
-  <script src="BasicMonitoringSite.js"></script> <!-- Linking the external JavaScript file -->
+
+  <!-- Camera feed and controls (shown only on breach) -->
+  <section class="camera-section" id="cameraControls" style="display: none;">
+    <h2>Live Camera Feed</h2>
+    <iframe id="cameraFeed" src="http://192.168.1.100" width="640" height="480"></iframe>
+
+    <div class="camera-controls">
+      <button id="manualControl">Manual</button>
+      <button id="autoControl" style="display:none;">Auto</button>
+      <button id="Left" style="display:none;">Left</button>
+      <button id="Right" style="display:none;">Right</button>
+    </div>
+  </section>
+
   <noscript>You need to enable JavaScript to view the full site.</noscript>
+
+  <script src="SmartAlarmSystem.js"></script>
 </body>
 </html>
