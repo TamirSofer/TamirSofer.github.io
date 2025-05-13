@@ -2,7 +2,7 @@
 document.getElementById("sendPin").addEventListener("click", function () 
 {
   const input = document.getElementById('myInput').value;
-  fetch('https://40dd-79-177-136-90.ngrok-free.app/send', 
+  fetch('https://023b-79-177-136-90.ngrok-free.app/send', 
   {
     method: 'POST',
     headers: {
@@ -25,7 +25,7 @@ document.getElementById("sendPin").addEventListener("click", function ()
 });
 document.getElementById("Left").addEventListener("click", function () 
 {
-  fetch('https://40dd-79-177-136-90.ngrok-free.app/send', 
+  fetch('https://023b-79-177-136-90.ngrok-free.app/send', 
   {
     method: 'POST',
     headers: {
@@ -45,7 +45,7 @@ document.getElementById("Left").addEventListener("click", function ()
 });
 document.getElementById("Right").addEventListener("click", function () 
 {
-  fetch('https://40dd-79-177-136-90.ngrok-free.app/send', 
+  fetch('https://023b-79-177-136-90.ngrok-free.app/send', 
   {
     method: 'POST',
     headers: {
@@ -65,7 +65,7 @@ document.getElementById("Right").addEventListener("click", function ()
 });
 document.getElementById("manualControl").addEventListener("click", function () 
 {
-  fetch('https://40dd-79-177-136-90.ngrok-free.app/send', 
+  fetch('https://023b-79-177-136-90.ngrok-free.app/send', 
   {
     method: 'POST',
     headers: {
@@ -92,7 +92,7 @@ document.getElementById("manualControl").addEventListener("click", function ()
 
 document.getElementById("autoControl").addEventListener("click", function () 
 {
-  fetch('https://40dd-79-177-136-90.ngrok-free.app/send', 
+  fetch('https://023b-79-177-136-90.ngrok-free.app/send', 
   {
     method: 'POST',
     headers: {
@@ -121,7 +121,7 @@ document.getElementById("camera").addEventListener("click", function()
 });
 function updateBreach() 
 {
-  fetch('https://40dd-79-177-136-90.ngrok-free.app/Breach')  //gets the data from the board
+  fetch('https://023b-79-177-136-90.ngrok-free.app/Breach')  //gets the data from the board
     .then(response => response.text())//makes it a text type
     .then(data => {
       // Update the content of the <p> tag with id 'msg' to display the string
@@ -139,7 +139,7 @@ function updateBreach()
 }
 function updatePir1() 
 {
-  fetch('https://40dd-79-177-136-90.ngrok-free.app/pir1')  //gets the data from the board
+  fetch('https://023b-79-177-136-90.ngrok-free.app/pir1')  //gets the data from the board
     .then(response => response.text())//makes it a text type
     .then(data => {
       // Update the content of the <p> tag with id 'msg' to display the string
@@ -149,7 +149,7 @@ function updatePir1()
 }
 function updatePir2() 
 {
-  fetch('https://40dd-79-177-136-90.ngrok-free.app/pir2')  //gets the data from the board
+  fetch('https://023b-79-177-136-90.ngrok-free.app/pir2')  //gets the data from the board
     .then(response => response.text())//makes it a text type
     .then(data => {
       // Update the content of the <p> tag with id 'msg' to display the string
@@ -159,7 +159,7 @@ function updatePir2()
 }
 function updateMic1() 
 {
-  fetch('https://40dd-79-177-136-90.ngrok-free.app/mic1')  //gets the data from the board
+  fetch('https://023b-79-177-136-90.ngrok-free.app/mic1')  //gets the data from the board
     .then(response => response.text())//makes it a text type
     .then(data => {
       // Update the content of the <p> tag with id 'msg' to display the string
@@ -169,7 +169,7 @@ function updateMic1()
 }
 function updateMic2() 
 {
-  fetch('https://40dd-79-177-136-90.ngrok-free.app/mic2')  //gets the data from the board
+  fetch('https://023b-79-177-136-90.ngrok-free.app/mic2')  //gets the data from the board
     .then(response => response.text())//makes it a text type
     .then(data => {
       // Update the content of the <p> tag with id 'msg' to display the string
