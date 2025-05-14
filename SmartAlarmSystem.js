@@ -17,7 +17,7 @@ function getFromESP(endpoint) {
 }
 
 // Load ngrok URL from remote config
-fetch('https://gist.githubusercontent.com/TamirSofer/64fcacb9a3b6ba8a8557abb7276a0de4/raw/dd350cddf436e021f3ca952b13f3fbdee89a918a/ngrok-url.txt')
+fetch('https://gist.githubusercontent.com/TamirSofer/64fcacb9a3b6ba8a8557abb7276a0de4/raw/2945d2e6916a54e183995e4b4ffcca0c92a6a49d/ngrok-url.txt')
   .then(response => response.json())
   .then(config => {
     apiBase = config.api;
