@@ -13,7 +13,7 @@ function postToESP(endpoint, payload) {
 }
 
 function getFromESP(endpoint) {
-  return fetch(${apiBase}/${endpoint}).then(response => response.text());
+  return fetch(`${apiBase}/${endpoint}`).then(response => response.text());
 }
 
 fetch('https://gist.githubusercontent.com/TamirSofer/17549519d051b4520ff175fce213e002/raw/4922bfcdc0b04ce74cf93e9dd4f2e55d427922fb/ngrok-url.txt')
