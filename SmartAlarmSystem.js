@@ -16,15 +16,21 @@ function getFromESP(endpoint) {
   return fetch(`${apiBase}/${endpoint}`).then(response => response.text());
 }
 
-// Load ngrok URL from remote config
-fetch('https://gist.githubusercontent.com/TamirSofer/64fcacb9a3b6ba8a8557abb7276a0de4/raw/2945d2e6916a54e183995e4b4ffcca0c92a6a49d/ngrok-url.txt')
-  .then(response => response.json())
-  .then(config => {
+fetch('https://gist.githubusercontent.com/TamirSofer/64fcacb9a3b6ba8a8557abb7276a0de4/raw/308c12ba37cc193e7ba53a02f94654c791eaea3a/ngrok-url.txt')
+  .then(response => response.text())  // get the raw text
+  .then(text => {
+    console.log("Raw Gist content:", text);
+    const config = JSON.parse(text);  // manually parse it as JSON
     apiBase = config.api;
     console.log('Loaded ngrok URL:', apiBase);
     startEventListeners();
     startPolling();
   })
+  .catch(error => {
+    console.error('Failed to load or parse ngrok URL config:', error);
+    alert("Couldn't load API configuration.");
+  });
+
   .catch(error => {
     console.error('Failed to load ngrok URL config:', error);
     alert("Couldn't load API configuration.");
