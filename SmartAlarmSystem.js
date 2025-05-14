@@ -1,186 +1,138 @@
 'use strict';
-document.getElementById("sendPin").addEventListener("click", function () 
-{
-  const input = document.getElementById('myInput').value;
-  fetch('https://023b-79-177-136-90.ngrok-free.app/send', 
-  {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ type: "pin" ,text: input })
-  })
-    .then(response => response.text())
-    .then(data => {
-      console.log('Success:', data);
-      alert('Sent: ' + data);
 
-      // Clear the input after sending
-      document.getElementById('myInput').value = '';
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Failed to send');
-    });
-});
-document.getElementById("Left").addEventListener("click", function () 
-{
-  fetch('https://023b-79-177-136-90.ngrok-free.app/send', 
-  {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ type: "ServoLeft" })
-  })
-    .then(response => response.text())
-    .then(data => {
-      console.log('Success:', data);
-      alert('Sent: ' + data);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Failed to send');
-    });
-});
-document.getElementById("Right").addEventListener("click", function () 
-{
-  fetch('https://023b-79-177-136-90.ngrok-free.app/send', 
-  {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ type: "ServoRight" })
-  })
-    .then(response => response.text())
-    .then(data => {
-      console.log('Success:', data);
-      alert('Sent: ' + data);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Failed to send');
-    });
-});
-document.getElementById("manualControl").addEventListener("click", function () 
-{
-  fetch('https://023b-79-177-136-90.ngrok-free.app/send', 
-  {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({type: "manual" , text: true })
-  })
-    .then(response => response.text())
-    .then(data => 
-    {
-      console.log('Manual mode activated');
-      // Hide manual button and show auto button
-      document.getElementById("manualControl").style.display = "none";
-      document.getElementById("autoControl").style.display = "inline-block";
-      document.getElementById("Left").style.display = "inline-block";
-      document.getElementById("Right").style.display = "inline-block";
-    })
-    .catch(error => 
-    {
-      console.error('Error:', error);
-      alert('Failed to send');
-    });
-});
+let apiBase = '';
 
-document.getElementById("autoControl").addEventListener("click", function () 
-{
-  fetch('https://023b-79-177-136-90.ngrok-free.app/send', 
-  {
+function postToESP(endpoint, payload) {
+  return fetch(`${apiBase}/${endpoint}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({type: "auto" , text: true })
+    body: JSON.stringify(payload)
+  });
+}
+
+function getFromESP(endpoint) {
+  return fetch(`${apiBase}/${endpoint}`).then(response => response.text());
+}
+
+// Load ngrok URL from remote config
+fetch('https://gist.githubusercontent.com/YOUR_USERNAME/YOUR_GIST_ID/raw/ngrok-url.json')
+  .then(response => response.json())
+  .then(config => {
+    apiBase = config.api;
+    console.log('Loaded ngrok URL:', apiBase);
+    startEventListeners();
+    startPolling();
   })
-    .then(response => response.text())
-    .then(data => 
-    {
-      console.log('Auto mode activated');
-      // Show manual button again
-      document.getElementById("manualControl").style.display = "inline-block";
-      document.getElementById("autoControl").style.display = "none";
-      document.getElementById("Left").style.display = "none";
-      document.getElementById("Right").style.display = "none";
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Failed to send');
-    });
-});
-document.getElementById("camera").addEventListener("click", function() 
-{
-  window.open("http://192.168.1.100", "_blank"); // open new tab with camera
-});
-function updateBreach() 
-{
-  fetch('https://023b-79-177-136-90.ngrok-free.app/Breach')  //gets the data from the board
-    .then(response => response.text())//makes it a text type
+  .catch(error => {
+    console.error('Failed to load ngrok URL config:', error);
+    alert("Couldn't load API configuration.");
+  });
+
+function startEventListeners() {
+  document.getElementById("sendPin").addEventListener("click", function () {
+    const input = document.getElementById('myInput').value;
+    postToESP('send', { type: "pin", text: input })
+      .then(data => {
+        console.log('Success:', data);
+        alert('Sent: ' + data);
+        document.getElementById('myInput').value = '';
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to send');
+      });
+  });
+
+  document.getElementById("Left").addEventListener("click", function () {
+    postToESP('send', { type: "ServoLeft" })
+      .then(data => alert('Sent: ' + data))
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to send');
+      });
+  });
+
+  document.getElementById("Right").addEventListener("click", function () {
+    postToESP('send', { type: "ServoRight" })
+      .then(data => alert('Sent: ' + data))
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to send');
+      });
+  });
+
+  document.getElementById("manualControl").addEventListener("click", function () {
+    postToESP('send', { type: "manual", text: true })
+      .then(() => {
+        document.getElementById("manualControl").style.display = "none";
+        document.getElementById("autoControl").style.display = "inline-block";
+        document.getElementById("Left").style.display = "inline-block";
+        document.getElementById("Right").style.display = "inline-block";
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to send');
+      });
+  });
+
+  document.getElementById("autoControl").addEventListener("click", function () {
+    postToESP('send', { type: "auto", text: true })
+      .then(() => {
+        document.getElementById("manualControl").style.display = "inline-block";
+        document.getElementById("autoControl").style.display = "none";
+        document.getElementById("Left").style.display = "none";
+        document.getElementById("Right").style.display = "none";
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to send');
+      });
+  });
+
+  document.getElementById("camera").addEventListener("click", function () {
+    window.open("http://192.168.1.100", "_blank");
+  });
+}
+
+function startPolling() {
+  setInterval(updatePir1, 1000);
+  setInterval(updatePir2, 1000);
+  setInterval(updateMic1, 1000);
+  setInterval(updateMic2, 1000);
+  setInterval(updateBreach, 1000);
+}
+
+function updateBreach() {
+  getFromESP('Breach')
     .then(data => {
-      // Update the content of the <p> tag with id 'msg' to display the string
-      if(data === "detected")
-      {
-        document.getElementById("cameraControls").style.display = "block";
-      }
-      else
-      {
-        document.getElementById("cameraControls").style.display = "none";
-      }
+      document.getElementById("cameraControls").style.display = (data === "detected") ? "block" : "none";
       document.getElementById('Breach').textContent = data;
     })
     .catch(error => console.error("Error:", error));
 }
-function updatePir1() 
-{
-  fetch('https://023b-79-177-136-90.ngrok-free.app/pir1')  //gets the data from the board
-    .then(response => response.text())//makes it a text type
-    .then(data => {
-      // Update the content of the <p> tag with id 'msg' to display the string
-      document.getElementById('movementSensor1').textContent = data;
-    })
-    .catch(error => console.error("Error:", error));
-}
-function updatePir2() 
-{
-  fetch('https://023b-79-177-136-90.ngrok-free.app/pir2')  //gets the data from the board
-    .then(response => response.text())//makes it a text type
-    .then(data => {
-      // Update the content of the <p> tag with id 'msg' to display the string
-      document.getElementById('movementSensor2').textContent = data;
-    })
-    .catch(error => console.error("Error:", error));
-}
-function updateMic1() 
-{
-  fetch('https://023b-79-177-136-90.ngrok-free.app/mic1')  //gets the data from the board
-    .then(response => response.text())//makes it a text type
-    .then(data => {
-      // Update the content of the <p> tag with id 'msg' to display the string
-      document.getElementById('soundSensor1').textContent = data;
-    })
-    .catch(error => console.error("Error:", error));
-}
-function updateMic2() 
-{
-  fetch('https://023b-79-177-136-90.ngrok-free.app/mic2')  //gets the data from the board
-    .then(response => response.text())//makes it a text type
-    .then(data => {
-      // Update the content of the <p> tag with id 'msg' to display the string
-      document.getElementById('soundSensor2').textContent = data;
-    })
+
+function updatePir1() {
+  getFromESP('pir1')
+    .then(data => document.getElementById('movementSensor1').textContent = data)
     .catch(error => console.error("Error:", error));
 }
 
-//update every second
-setInterval(updatePir1, 1000);
-setInterval(updatePir2, 1000);
-setInterval(updateMic1, 1000);
-setInterval(updateMic2, 1000);
-setInterval(updateBreach, 1000);
+function updatePir2() {
+  getFromESP('pir2')
+    .then(data => document.getElementById('movementSensor2').textContent = data)
+    .catch(error => console.error("Error:", error));
+}
+
+function updateMic1() {
+  getFromESP('mic1')
+    .then(data => document.getElementById('soundSensor1').textContent = data)
+    .catch(error => console.error("Error:", error));
+}
+
+function updateMic2() {
+  getFromESP('mic2')
+    .then(data => document.getElementById('soundSensor2').textContent = data)
+    .catch(error => console.error("Error:", error));
+}
