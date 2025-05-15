@@ -31,11 +31,6 @@ fetch('https://gist.githubusercontent.com/TamirSofer/17549519d051b4520ff175fce21
     alert("Couldn't load API configuration.");
   });
 
-  .catch(error => {
-    console.error('Failed to load ngrok URL config:', error);
-    alert("Couldn't load API configuration.");
-  });
-
 function startEventListeners() {
   document.getElementById("sendPin").addEventListener("click", function () {
     const input = document.getElementById('myInput').value;
