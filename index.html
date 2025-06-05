@@ -26,15 +26,13 @@
     <button id="sendPin">Send to ESP32</button>
   </section>
 
-  <!-- Camera button (visible when no breach) -->
   <div id="cameraButtonWrapper">
     <button id="camera">Camera</button>
   </div>
 
-  <!-- Camera feed and controls (shown only on breach) -->
   <section class="camera-section" id="cameraControls" style="display: none;">
     <h2>Live Camera Feed</h2>
-    <iframe id="cameraFeed" src="https://esp32cam.loca.lt" width="640" height="480"></iframe>
+    <iframe id="cameraFeed" src="http://192.168.217.166/" width="640" height="480"></iframe>
 
     <div class="camera-controls">
       <button id="manualControl">Manual</button>
