@@ -2,13 +2,10 @@
 
 let apiBase = '';
 
-function postToESP(endpoint, payload) 
-{
-  return fetch(`${apiBase}/${endpoint}`, 
-  {
+function postToESP(endpoint, payload) {
+  return fetch(${apiBase}/${endpoint}, {
     method: 'POST',
-    headers: 
-    {
+    headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(payload)
@@ -16,10 +13,10 @@ function postToESP(endpoint, payload)
 }
 
 function getFromESP(endpoint) {
-  return fetch(`${apiBase}/${endpoint}`).then(response => response.text());
+  return fetch(${apiBase}/${endpoint}).then(response => response.text());
 }
 
-fetch('https://gist.githubusercontent.com/TamirSofer/17549519d051b4520ff175fce213e002/raw/96477013cbfedac03c55c2e6b939e619372a6c44/ngrok-url.txt')
+fetch('https://gist.githubusercontent.com/TamirSofer/17549519d051b4520ff175fce213e002/raw/51c051799055c53c5026698331146e52492737f7/ngrok-url.txt')
   .then(response => response.text())  // get the raw text
   .then(text => {
     console.log("Raw Gist content:", text);
@@ -33,7 +30,6 @@ fetch('https://gist.githubusercontent.com/TamirSofer/17549519d051b4520ff175fce21
     console.error('Failed to load or parse ngrok URL config:', error);
     alert("Couldn't load API configuration.");
   });
-
 function startEventListeners() {
   document.getElementById("sendPin").addEventListener("click", function () {
     const input = document.getElementById('myInput').value;
@@ -95,9 +91,9 @@ function startEventListeners() {
       });
   });
 
-  document.getElementById("camera").addEventListener("click", function () {
-    window.open("http://192.168.1.100", "_blank");
-  });
+  //document.getElementById("camera").addEventListener("click", function () {
+    //window.open("http://192.168.1.100", "_blank");
+  //});
 }
 
 function startPolling() {
