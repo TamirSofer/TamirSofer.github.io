@@ -115,7 +115,6 @@ function updateBreach() {
 function updatePir1() {
   getFromESP('pir1')
     .then(data => {
-      console.log("pir1", data);
       document.getElementById('movementSensor1').textContent = data
     })
     .catch(error => console.error("Error:", error));
