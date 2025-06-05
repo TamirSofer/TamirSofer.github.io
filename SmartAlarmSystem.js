@@ -107,7 +107,6 @@ function startPolling() {
 function updateBreach() {
   getFromESP('Breach')
     .then(data => {
-      document.getElementById("cameraControls").style.display = (data === "detected") ? "block" : "none";
       document.getElementById('Breach').textContent = data;
     })
     .catch(error => console.error("Error:", error));
