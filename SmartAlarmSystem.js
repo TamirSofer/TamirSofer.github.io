@@ -3,7 +3,7 @@
 let apiBase = '';
 
 function postToESP(endpoint, payload) {
-  return fetch(${apiBase}/${endpoint}, {
+  return fetch(`${apiBase}/${endpoint}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
