@@ -16,7 +16,7 @@ function getFromESP(endpoint) {
   return fetch(`${apiBase}/${endpoint}`).then(response => response.text());
 }
 
-fetch('https://gist.githubusercontent.com/TamirSofer/17549519d051b4520ff175fce213e002/raw/c1c5fdf742e5cd6f863569b91467990540939201/ngrok-url.txt')
+fetch('https://gist.githubusercontent.com/TamirSofer/17549519d051b4520ff175fce213e002/raw/ca605e14029c9912c23f27c131b3cea287fb00ed/ngrok-url.txt')
   .then(response => response.text())  // get the raw text
   .then(text => {
     console.log("Raw Gist content:", text);
