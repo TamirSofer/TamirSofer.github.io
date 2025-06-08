@@ -7,6 +7,7 @@ function postToESP(endpoint, payload) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
+      'ngrok-skip-browser-warning': '1',
     },
     body: JSON.stringify(payload)
   });
@@ -16,7 +17,7 @@ function getFromESP(endpoint) {
   return fetch(`${apiBase}${endpoint}`).then(response => response.text());
 }
 
-fetch('https://gist.githubusercontent.com/TamirSofer/17549519d051b4520ff175fce213e002/raw/13e97c8dc545e3951d0c9e28dc72e7696e98ad2f/ngrok-url.txt')
+fetch('https://gist.githubusercontent.com/TamirSofer/17549519d051b4520ff175fce213e002/raw/017b7cd9239dfdb5701e5f7715145c85d750bd3a/ngrok-url.txt')
   .then(response => response.text())  // get the raw text
   .then(text => {
     console.log("Raw Gist content:", text);
