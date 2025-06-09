@@ -98,11 +98,11 @@ function startEventListeners() {
 }
 
 function startPolling() {
-  setInterval(updatePir1, 1000);
-  setInterval(updatePir2, 1000);
-  setInterval(updateMic1, 1000);
-  setInterval(updateMic2, 1000);
-  setInterval(updateBreach, 1000);
+  setInterval(updatePir1, 3000);
+  setInterval(updatePir2, 3000);
+  setInterval(updateMic1, 3000);
+  setInterval(updateMic2, 3000);
+  setInterval(updateBreach, 3000);
 }
 
 function updateBreach() {
