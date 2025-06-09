@@ -92,9 +92,9 @@ function startEventListeners() {
       });
   });
 
-  //document.getElementById("camera").addEventListener("click", function () {
-    //window.open("http://192.168.1.100", "_blank");
-  //});
+  document.getElementById("camera").addEventListener("click", function () {
+    window.open("http://192.168.1.100", "_blank");
+  });
 }
 
 function startPolling() {
